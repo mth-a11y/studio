@@ -108,4 +108,4 @@ MIT
 
 ---
 
-🔗 **[View Live Demo](https://mak-med-demo.vercel.app)** | 📧 **Contact: [info@mak-med.com](mailto:info@mak-med.com)**
+🔗 **[View Live Demo](https://studio-ecru-ten.vercel.app/)** | 📧 **Contact: [info@mak-med.com](mailto:info@mak-med.com)**
