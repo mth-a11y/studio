@@ -1,156 +1,156 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-interface Path {
-    curviness: number;
-    autoRotate: boolean;
-    values: { x: number; y: number }[];
-}
-interface HexagonProps {
-    ref: React.RefObject<HTMLDivElement>;
-    className: string;
-    color: string;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-}
-interface NeonLineProps {
-    ref: React.RefObject<HTMLDivElement>;
-    color: string;
-    top: string;
-}
-const NeonLine: React.FC<NeonLineProps> = ({ ref, color, top }) => (
-    <div ref={ref} className={`absolute left-0 w-full h-[2px] bg-[${color}] opacity-0`} style={{ top }} />
-);
-const InnerHexagon: React.FC<{ ref: React.RefObject<HTMLDivElement>; color: string }> = ({ ref, color }) => (
-    <div ref={ref} className={`absolute inset-0 bg-[${color}]/30 clip-polygon-[50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%] z-20 shadow-inner`} />
-);
-const Hexagon: React.FC<HexagonProps> = ({ ref, className, color, onMouseEnter, onMouseLeave }) => (
-    <div
-        ref={ref}
-        className={`${className} relative flex items-center justify-center after:content-[''] after:absolute after:inset-0 after:bg-transparent after:border-2 after:border-[${color}] after:clip-polygon-[50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%] after:z-10`}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-    >
-        <InnerHexagon ref={ref} color={color} />
-        <div className={`absolute inset-0 bg-transparent border-2 border-[${color}] clip-polygon-[50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%] z-0`} />
-    </div>
-);
-const path: Path = {
-    curviness: 1.25,
-    autoRotate: true,
-    values: [
-        { x: 100, y: 0 },
-        { x: 0, y: 50 },
-        { x: -100, y: 0 },
-        { x: 0, y: -50 },
-        { x: 100, y: 0 },
-    ],
-};
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const path2: Path = {
-    curviness: 1.25,
-    autoRotate: true,
-    values: [
-        { x: 200, y: 0 },
-        { x: 0, y: 100 },
-        { x: -200, y: 0 },
-        { x: 0, y: -100 },
-        { x: 200, y: 0 },
-    ],
-};
 const InteractiveHeader: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
-  const hexagonRef = useRef<HTMLDivElement>(null);
-    const hexagonInnerRef = useRef<HTMLDivElement>(null);
-  const neonLine1Ref = useRef<HTMLDivElement>(null);
-  const neonLine2Ref = useRef<HTMLDivElement>(null);
-  const hexagon2Ref = useRef<HTMLDivElement>(null);
-  const hexagon3Ref = useRef<HTMLDivElement>(null);
-  const hexagon4Ref = useRef<HTMLDivElement>(null);
-    const [isHovered, setIsHovered] = useState(false);
-    const headerHeight = "h-96 sm:h-64 md:h-96 lg:h-96";
 
-    const animateHexagon = (hexagonElement: HTMLDivElement, innerHexagonElement: HTMLDivElement, neonLine1Element: HTMLDivElement, neonLine2Element: HTMLDivElement, isHovered: boolean) => {
-        // Inner Hexagon animation
-        gsap.to(innerHexagonElement, {
-            scale: 1.1, duration: 1.5, repeat: -1, yoyo: true, ease: 'power1.inOut'
-        });
-        gsap.to(neonLine1Element, { opacity: 1, duration: 1, repeat: -1, yoyo: true, ease: 'power1.inOut'});
-        gsap.to(neonLine2Element, { opacity: 1, duration: 1, repeat: -1, yoyo: true, ease: 'power1.inOut'});
-        gsap.to(hexagonElement, { scale: isHovered ? 1.1 : 1, duration: 0.3});
-        gsap.to(hexagonElement, { borderColor: isHovered ? '#8E44AD' : '#FF6B6B', duration: 0.3});
-
-    };
+  // Handle scroll effect
   useEffect(() => {
-    const headerElement = headerRef.current;
-    const hexagonInnerElement = hexagonInnerRef.current;
-    const neonLine1Element = neonLine1Ref.current;
-    const neonLine2Element = neonLine2Ref.current;
-    const hexagonElement = hexagonRef.current;
-    const hexagon2Element = hexagon2Ref.current;
-    const hexagon3Element = hexagon3Ref.current;
-    const hexagon4Element = hexagon4Ref.current;
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-        if (headerElement && hexagonElement && hexagon2Element) {
-            gsap.to(headerElement, { background: 'linear-gradient(to right, #2E86C1, #8E44AD)', duration: 1 });
-            animateHexagon(hexagonElement, hexagonInnerElement, neonLine1Element, neonLine2Element, isHovered)
-            // Hexagon 1 rotation
-            const rotationTimeline = gsap.to(hexagonElement, { rotation: 360, duration: 20, repeat: -1, ease: 'linear' });
-            //Hexagon 2 rotation
-            const rotation2Timeline = gsap.to(hexagon2Element, {
-                rotation: -360,
-                // Rotate in opposite direction
-                duration: 20,
-                repeat: -1,
-                ease: 'linear',
-            });
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
-            //Movement along the "infinity" path            
-
-            gsap.to(hexagon3Element, { motionPath: path,
-                duration: 15,
-                repeat: -1,
-                ease: 'linear',
-            });
-
-            gsap.to(hexagon4Element, {
-                motionPath: path2,
-                duration: 25,
-                repeat: -1,
-                ease: 'linear',
-            });
-
-            gsap.to([hexagonElement, hexagon2Element, hexagon3Element, hexagon4Element], {
-                y: "-5%",
-                duration: 1,
-            });
-            gsap.to(hexagon2Element, {
-                motionPath: path2,
-                duration: 10,
-                repeat: -1,
-                ease: 'linear',
-            });
-
-            rotationTimeline.play()
-            rotation2Timeline.play()
-            gsap.to([hexagonElement, hexagon2Element], { scale: isHovered ? 1.1 : 1, duration: 0.3, });
-        }
-  }, [isHovered]);
+  // Navigation items
+  const navItems = [
+    { name: 'Главная', href: '#' },
+    { name: 'Услуги', href: '#services' },
+    { name: 'О нас', href: '#about' },
+    { name: 'Врачи', href: '#doctors' },
+    { name: 'Контакты', href: '#contact' },
+  ];
 
   return (
-    <header ref={headerRef} className={`relative w-full ${headerHeight} sm:h-64 overflow-hidden`}>
-      <div className="absolute inset-0 flex items-center justify-center md:justify-start">            
-            <Hexagon ref={hexagonRef} className="hexagon w-32 h-32 sm:w-24 sm:h-24" color="#FF6B6B" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} />
-            <InnerHexagon ref={hexagonInnerRef} color="#FF6B6B" />
-            <NeonLine ref={neonLine1Ref} color="#FF6B6B" top="25%" />
-            <NeonLine ref={neonLine2Ref} color="#FF6B6B" top="75%" />
-            <Hexagon ref={hexagon2Ref} className="hexagon2 w-24 h-24 sm:w-16 sm:h-16 absolute" color="#8E44AD" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} />
-            <Hexagon ref={hexagon3Ref} className="hexagon3 w-20 h-20 sm:w-12 sm:h-12 absolute" color="#2E86C1" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} />
-            <Hexagon ref={hexagon4Ref} className="hexagon4 w-16 h-16 sm:w-8 sm:h-8 absolute" color="#2E86C1" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} />
+    <div className="relative z-50">
+      {/* Main Header */}
+      <div 
+        ref={headerRef}
+        className={`${isScrolled ? 'py-3 bg-white/95 shadow-md' : 'py-5 bg-transparent'} 
+          fixed top-0 left-0 w-full z-50 transition-all duration-300`}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="#" className="flex items-center">
+              <div className="relative w-10 h-10 mr-2">
+                <div className="absolute inset-0 bg-teal-500 rounded-full opacity-80"></div>
+                <div className="absolute inset-[2px] bg-white rounded-full flex items-center justify-center">
+                  <span className="text-teal-600 font-bold text-xl">M</span>
+                </div>
+              </div>
+              <span className={`font-bold text-xl ${isScrolled ? 'text-teal-600' : 'text-white'}`}>Mak-Med</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navItems.map((item, index) => (
+                <Link 
+                  key={index} 
+                  href={item.href}
+                  className={`font-medium ${isScrolled ? 'text-gray-700 hover:text-teal-600' : 'text-white/90 hover:text-white'} transition-colors`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {/* Telegram Button */}
+              <Link 
+                href="https://t.me/makmed_bot" 
+                target="_blank" 
+                className={`flex items-center px-4 py-2 rounded-full ${isScrolled ? 'bg-teal-500 text-white' : 'bg-white text-teal-600'} font-medium transition-colors`}
+              >
+                <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.892 8.917c-.141.659-.534.818-1.083.51l-2.995-2.208-1.446 1.394c-.159.16-.294.294-.603.294l.213-3.035 5.529-4.994c.24-.213-.052-.332-.373-.119l-6.826 4.297-2.948-.975c-.638-.213-.652-.638.134-.946l11.514-4.435c.532-.179 1.001.132.776 1.3z"/>
+                </svg>
+                Телеграм
+              </Link>
+              
+              {/* Phone Button */}
+              <Link 
+                href="tel:+74951234567" 
+                className={`flex items-center font-medium ${isScrolled ? 'text-teal-600' : 'text-white'} transition-colors`}
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                +7 (495) 123-45-67
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden focus:outline-none"
+              onClick={toggleMobileMenu}
+            >
+              {mobileMenuOpen ? (
+                <X className={`w-6 h-6 ${isScrolled ? 'text-teal-600' : 'text-white'}`} />
+              ) : (
+                <Menu className={`w-6 h-6 ${isScrolled ? 'text-teal-600' : 'text-white'}`} />
+              )}
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="absolute inset-0 flex items-center justify-center text-white text-4xl sm:text-2xl font-bold z-10">Инновации в медицине</div>
-    </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-[72px] left-0 w-full bg-white shadow-lg z-40 md:hidden"
+          >
+            <div className="container mx-auto px-4 py-4 flex flex-col">
+              {navItems.map((item, index) => (
+                <Link 
+                  key={index} 
+                  href={item.href}
+                  className="py-3 border-b border-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="flex flex-col mt-4 space-y-3">
+                <Link 
+                  href="https://t.me/makmed_bot" 
+                  target="_blank" 
+                  className="flex items-center justify-center py-3 bg-teal-500 text-white rounded-lg font-medium transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.892 8.917c-.141.659-.534.818-1.083.51l-2.995-2.208-1.446 1.394c-.159.16-.294.294-.603.294l.213-3.035 5.529-4.994c.24-.213-.052-.332-.373-.119l-6.826 4.297-2.948-.975c-.638-.213-.652-.638.134-.946l11.514-4.435c.532-.179 1.001.132.776 1.3z"/>
+                  </svg>
+                  Телеграм
+                </Link>
+                <Link 
+                  href="tel:+74951234567" 
+                  className="flex items-center justify-center py-3 bg-gray-100 text-teal-600 rounded-lg font-medium transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  +7 (495) 123-45-67
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
