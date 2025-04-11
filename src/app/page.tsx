@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useEffect, useState} from 'react';
@@ -14,7 +13,10 @@ import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
 import {BusinessLocation, getBusinessLocation} from '@/services/maps';
-import {GoogleMap, LoadScript} from '@vis.gl/react-google-maps';
+import {
+  GoogleMap,
+  Marker,
+} from '@vis.gl/react-google-maps';
 import {contactFormSuggestion} from '@/ai/flows/contact-form-suggestion';
 
 const mapStyles = {
@@ -154,13 +156,13 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             {businessLocation ? (
-              <LoadScript googleMapsApiKey={''}>
-                <GoogleMap
-                  mapContainerStyle={mapStyles}
-                  center={businessLocation.coordinate}
-                  zoom={12}
-                />
-              </LoadScript>
+              <GoogleMap
+                mapContainerStyle={mapStyles}
+                center={businessLocation.coordinate}
+                zoom={12}
+              >
+                <Marker position={businessLocation.coordinate} />
+              </GoogleMap>
             ) : (
               <div>Loading map...</div>
             )}
