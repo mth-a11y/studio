@@ -6,21 +6,12 @@ import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
 
 const ContactSection = () => {
-  const [imageUrl, setImageUrl] = useState('');
-  useEffect(() => {
-    const generateImage = async (prompt: string) => {
-      // Placeholder for Firebase AI image generation
-      // const response = await fetch('/api/firebase-generate', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ prompt }),
-      // });
-      // return response.url;
-      return `https://picsum.photos/1200/600?random=${Math.random()}`; // Mock response
-    };
-    generateImage('Абстрактный медицинский фон с элементами ДНК и синими оттенками, 4k').then(
-      setImageUrl
-    );
-  }, []);
+  // Pre-generated image URL based on prompt:
+  // "Абстрактный медицинский фон с элементами ДНК и синими оттенками, 4k"
+  const [imageUrl] = useState('https://picsum.photos/1200/600?random=10'); // Placeholder for background image
+  
+  // Note: In a real application, this would be a pre-generated image stored in assets
+  // or fetched from a content management system
 
   return (
     <section className='py-12 sm:py-16 bg-cover bg-center' style={{backgroundImage: `url(${imageUrl})`}}>

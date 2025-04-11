@@ -4,27 +4,12 @@ import {useState, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 
 const HeroSection = () => {
-  const [imageUrl, setImageUrl] = useState('');
-
-  const generateImage = async (prompt: string) => {
-    // Placeholder for Firebase AI image generation
-    // const response = await fetch('/api/firebase-generate', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ prompt }),
-    // });
-    // return response.url;
-    return `https://picsum.photos/1920/600?random=${Math.random()}`; // Mock response
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const newImageUrl = await generateImage(
-        'Современная клиника с улыбающимся врачом и семьей пациентов, светлый интерьер, стильный дизайн, 3D-рендеринг'
-      );
-      setImageUrl(newImageUrl);
-    };
-    fetchData();
-  }, []);
+  // Pre-generated image URL based on prompt:
+  // "Современная клиника с улыбающимся врачом и семьей пациентов, светлый интерьер, стильный дизайн, 3D-рендеринг"
+  const [imageUrl] = useState('https://picsum.photos/1920/600?random=1'); // Placeholder image
+  
+  // Note: In a real application, this would be a pre-generated image stored in assets
+  // or fetched from a content management system
   return (
     <section className='relative w-full py-16 sm:py-24 flex flex-col items-center justify-center overflow-hidden'>
       <img

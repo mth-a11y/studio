@@ -3,67 +3,34 @@
 import {useState, useEffect} from 'react';
 
 const ServicesSection = () => {
-  const [services, setServices] = useState([
+  // Pre-generated content based on the following prompts:
+  // 1. Icon: "Минималистичная иконка кардиологии, линейный стиль, синий акцент"
+  //    Text: "Короткий текст о преимуществах кардиологического отделения клиники Mak-Med, 120 символов"
+  // 2. Icon: "Иконка педиатрии в стиле line art"
+  //    Text: "Короткий текст о преимуществах педиатрического отделения клиники Mak-Med, 120 символов"
+  // 3. Icon: "Иконка лабораторных анализов, плоский дизайн"
+  //    Text: "Короткий текст о преимуществах лабораторных анализов в клинике Mak-Med, 120 символов"
+  
+  const [services] = useState([
     {
       title: 'Кардиология',
-      iconUrl: '',
-      description: '',
+      iconUrl: 'https://picsum.photos/100/100?random=1', // Placeholder for icon
+      description: 'Современное оборудование и опытные кардиологи помогут вам поддерживать здоровье сердца. Индивидуальный подход к каждому пациенту.',
     },
     {
       title: 'Педиатрия',
-      iconUrl: '',
-      description: '',
+      iconUrl: 'https://picsum.photos/100/100?random=2', // Placeholder for icon
+      description: 'Забота о здоровье ваших детей от рождения до подросткового возраста. Наши педиатры помогут вашему ребенку расти здоровым.',
     },
     {
       title: 'Лабораторные анализы',
-      iconUrl: '',
-      description: '',
+      iconUrl: 'https://picsum.photos/100/100?random=3', // Placeholder for icon
+      description: 'Быстрые и точные результаты с использованием современного оборудования. Широкий спектр доступных анализов.',
     },
   ]);
-
-  const generateContent = async (prompts: { iconPrompt: string, textPrompt: string }[]) => {
-    return await Promise.all(
-      prompts.map(async ({iconPrompt, textPrompt}) => {
-        return {
-          iconUrl: `https://picsum.photos/100/100?random=${Math.random()}`, // Mock response
-          description: `Описание услуги, ${Math.random()} символов`, // Mock response
-        };
-      })
-    );
-  }
-
-  useEffect(() => {
-    const prompts = [
-          iconPrompt: 'Минималистичная иконка кардиологии, линейный стиль, синий акцент',
-          textPrompt: 'Короткий текст о преимуществах кардиологического отделения клиники Mak-Med, 120 символов',
-        },
-        {
-          iconPrompt: 'Иконка педиатрии в стиле line art',
-          textPrompt: 'Короткий текст о преимуществах педиатрического отделения клиники Mak-Med, 120 символов',
-        },
-        {
-          iconPrompt: 'Иконка лабораторных анализов, плоский дизайн',
-          textPrompt: 'Короткий текст о преимуществах лабораторных анализов в клинике Mak-Med, 120 символов',
-        },
-      ].map(item => ({
-        iconPrompt: item.iconPrompt,
-        textPrompt: item.textPrompt
-      }))
-    
-    const fetchData = async () => {
-      const newServices = await generateContent(prompts)
-    
-      setServices(
-        services.map((service, index) => ({
-          ...service,
-          iconUrl: newServices[index].iconUrl,
-          description: newServices[index].description,
-        }))
-      );
-    }
-    
-    fetchData()
-  }, []);
+  
+  // Note: In a real application, these would be pre-generated images and text content
+  // stored in assets or fetched from a content management system
 
   return (
     <section className='py-16 bg-gray-50'>

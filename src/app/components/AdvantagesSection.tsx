@@ -3,38 +3,18 @@
 import {useState, useEffect} from 'react';
 
 const AdvantagesSection = () => {
-  const [images, setImages] = useState<string[]>(['', '', '']);
-
-  const generateImage = async (prompt: string) => {
-    // Placeholder for Firebase AI image generation
-    // const response = await fetch('/api/firebase-generate', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ prompt }),
-    // });
-    // return response.url;
-    return `https://picsum.photos/100/100?random=${Math.random()}`; // Mock response
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const newImages = await Promise.all([
-        generateImage(
-          'Абстрактная анимация молекул ДНК и медицинских инструментов, градиентные цвета'
-        ),
-        generateImage(
-          'Абстрактная анимация молекул ДНК и медицинских инструментов, градиентные цвета'
-        ),
-        generateImage(
-          'Абстрактная анимация молекул ДНК и медицинских инструментов, градиентные цвета'
-        ),
-      ]);
-
-      setImages(newImages);
-    };
-    fetchData();
-  }, []);
-
-  const imageStyle = {display: images[0] ? 'block' : 'none'}
+  // Pre-generated images based on the prompt:
+  // "Абстрактная анимация молекул ДНК и медицинских инструментов, градиентные цвета"
+  const [images] = useState<string[]>([
+    'https://picsum.photos/100/100?random=4', // Placeholder for the first advantage image
+    'https://picsum.photos/100/100?random=5', // Placeholder for the second advantage image
+    'https://picsum.photos/100/100?random=6', // Placeholder for the third advantage image
+  ]);
+  
+  // Note: In a real application, these would be pre-generated images stored in assets
+  // or fetched from a content management system
+  
+  const imageStyle = {display: 'block'}
 
   return (
     <section className='py-12 sm:py-16 bg-gray-50'>

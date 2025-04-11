@@ -3,43 +3,28 @@
 import {useState, useEffect} from 'react';
 
 const TestimonialsSection = () => {
-  const [testimonials, setTestimonials] = useState([
+  // Pre-generated avatars that would normally be created based on prompts
+  // In a real application, these would be stored in assets or fetched from a content management system
+  const [testimonials] = useState([
     {
       text: 'Благодаря Мак-Мед мы смогли значительно улучшить качество обслуживания наших пациентов. Рекомендуем!',
       author: 'Доктор Иванов',
-      avatar: '',
+      avatar: 'https://picsum.photos/150/150?random=7', // Placeholder for avatar
     },
     {
       text: 'Высокий уровень профессионализма и качества оборудования. Довольны сотрудничеством.',
       author: 'Медсестра Петрова',
-      avatar: '',
+      avatar: 'https://picsum.photos/150/150?random=8', // Placeholder for avatar
     },
     {
       text: 'Оперативная техподдержка и индивидуальный подход. Превосходный сервис!',
       author: 'Главврач Сидоров',
-      avatar: '',
+      avatar: 'https://picsum.photos/150/150?random=9', // Placeholder for avatar
     },
   ]);
-
-  const generateAvatar = async () => {
-      const avatarUrl = `https://picsum.photos/150/150?random=${Math.random()}`; // Mock response
-      return avatarUrl
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const newAvatars = await Promise.all([generateAvatar(), generateAvatar(), generateAvatar()]);
-      setTestimonials((prevTestimonials) => {
-          return prevTestimonials.map((testimonial, index) => ({
-              ...testimonial,
-              avatar: newAvatars[index]
-          }));
-      })
-    };
-
-    fetchData();
-
-  }, []);
+  
+  // Note: In a real application, these would be pre-generated avatars stored in assets
+  // or fetched from a content management system
 
   return (
     <section className="py-12 sm:py-16 bg-gray-50">
