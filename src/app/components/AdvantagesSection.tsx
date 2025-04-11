@@ -133,7 +133,7 @@ const AdvantagesSection = () => {
                 </ul>
                 
                 <Link 
-                  href="https://t.me/makmed_bot" 
+                  href="https://t.me/Buddy108Bot" 
                   target="_blank" 
                   className="inline-flex items-center justify-center bg-white text-teal-600 hover:bg-gray-100 transition-colors py-3 px-6 rounded-full font-medium"
                 >

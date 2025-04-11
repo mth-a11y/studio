@@ -69,7 +69,7 @@ const InteractiveHeader: React.FC = () => {
               
               {/* Telegram Button */}
               <Link 
-                href="https://t.me/makmed_bot" 
+                href="https://t.me/Buddy108Bot" 
                 target="_blank" 
                 className={`flex items-center px-4 py-2 rounded-full ${isScrolled ? 'bg-teal-500 text-white' : 'bg-white text-teal-600'} font-medium transition-colors`}
               >
@@ -127,7 +127,7 @@ const InteractiveHeader: React.FC = () => {
               ))}
               <div className="flex flex-col mt-4 space-y-3">
                 <Link 
-                  href="https://t.me/makmed_bot" 
+                  href="https://t.me/Buddy108Bot" 
                   target="_blank" 
                   className="flex items-center justify-center py-3 bg-teal-500 text-white rounded-lg font-medium transition-colors"
                   onClick={toggleMobileMenu}

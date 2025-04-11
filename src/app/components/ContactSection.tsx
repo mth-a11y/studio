@@ -56,7 +56,7 @@ const ContactSection = () => {
   
   const contacts = [
     { icon: <Phone className="w-5 h-5 text-teal-600" />, content: '+7 (495) 123-45-67', href: 'tel:+74951234567' },
-    { icon: <Mail className="w-5 h-5 text-teal-600" />, content: 'info@mak-med.ru', href: 'mailto:info@mak-med.ru' },
+    { icon: <Mail className="w-5 h-5 text-teal-600" />, content: 'info@mak-med.tech', href: 'mailto:info@mak-med.tech' },
     { icon: <MapPin className="w-5 h-5 text-teal-600" />, content: 'Москва, ул. Медицинская, 10', href: 'https://maps.google.com' },
     { icon: <Calendar className="w-5 h-5 text-teal-600" />, content: 'Пн-Сб: 8:00-20:00, Вс: 9:00-18:00', href: '#' },
   ];
@@ -241,7 +241,7 @@ const ContactSection = () => {
               
               <div className="mt-8 flex space-x-4">
                 <a 
-                  href="https://t.me/makmed_bot" 
+                  href="https://t.me/Buddy108Bot" 
                   target="_blank"
                   rel="noopener noreferrer" 
                   className="w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center text-white hover:bg-teal-600 transition-colors"
